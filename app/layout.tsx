@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'CRM Financeiro | Seu Dinheiro Sob Controle',
-  description: 'Organize suas finanças de forma inteligente e alcance seus objetivos.',
+  title: 'Personal Financeiro | Seu Dinheiro Sob Controle',
+  description: 'Organize suas finanças de forma inteligente e alcance seus objetivos financeiros.',
 };
 
 export default function RootLayout({

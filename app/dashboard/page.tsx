@@ -64,7 +64,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       {/* Título */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">📊 Seu Painel Financeiro</h1>
+        <h1 className="text-3xl font-bold text-gray-900">📊 Personal Financeiro</h1>
         <p className="text-gray-600 mt-1">Controle completo do seu dinheiro em um só lugar</p>
       </div>
 

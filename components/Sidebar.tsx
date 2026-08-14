@@ -58,7 +58,7 @@ export default function Sidebar() {
               💰
             </div>
             <div>
-              <h1 className="font-bold text-lg">CRM</h1>
+              <h1 className="font-bold text-lg">Personal</h1>
               <p className="text-xs text-slate-400">Financeiro</p>
             </div>
           </div>

@@ -1,6 +1,7 @@
 ﻿{
-  "name": "crm-financeiro",
+  "name": "personal-financeiro",
   "version": "1.0.0",
+  "description": "Personal Financeiro - Seu dinheiro finalmente sob controle",
   "private": true,
   "scripts": {
     "dev": "next dev",

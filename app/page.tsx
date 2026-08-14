@@ -65,7 +65,7 @@ export default function LoginPage() {
           <div className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
             <span className="text-3xl">💰</span>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900">CRM Financeiro</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Personal Financeiro</h1>
           <p className="text-gray-600 mt-3 text-lg">Seu dinheiro finalmente sob controle</p>
         </div>
 
