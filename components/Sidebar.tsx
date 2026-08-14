@@ -19,7 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 
 const menuItems = [
@@ -39,9 +39,10 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const { logout } = useAuthStore();
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
+  const handleLogout = () => {
+    logout();
     router.push('/');
   };
 

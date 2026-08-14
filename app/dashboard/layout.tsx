@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/lib/store';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 
@@ -12,29 +12,30 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const { user, isAuthenticated, initAuth } = useAuthStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
+    initAuth();
+    setLoading(false);
   }, []);
 
-  const checkAuth = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
       router.push('/');
-    } else {
-      setUser(user);
     }
-    setLoading(false);
-  };
+  }, [loading, isAuthenticated, router]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="w-12 h-12 rounded-full border-4 border-sky-200 border-t-sky-500 animate-spin" />
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-500 animate-spin" />
       </div>
     );
+  }
+
+  if (!isAuthenticated) {
+    return null;
   }
 
   return (
