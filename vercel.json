@@ -1,6 +1,9 @@
 {
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "nextjs"
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": "nextjs",
+  "nodeVersion": "18.x",
+  "cleanUrls": true,
+  "trailingSlash": false
 }
