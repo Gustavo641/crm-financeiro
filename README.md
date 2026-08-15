@@ -194,3 +194,4 @@ Contribuições são bem-vindas! Por favor:
 Desenvolvido com ❤️ por [Seu Nome]
 
 **Sua vida financeira organizada. De verdade.** 🚀
+# Deploy trigger
