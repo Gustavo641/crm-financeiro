@@ -1,4 +1,8 @@
-* /* @tailwind base; @tailwind components; @tailwind utilities; */ {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,11 +10,13 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: #f8fafc;
-  color: #1e293b;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
 /* Gradientes customizados */
@@ -27,21 +33,21 @@ body {
   box-shadow: 0 10px 25px rgba(14, 165, 233, 0.15);
 }
 
-/* Scrollbar customizado */
+/* Scrollbar customizado - Dark Mode */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #1e293b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #0EA5E9 0%, #14B8A6 100%);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
 }
