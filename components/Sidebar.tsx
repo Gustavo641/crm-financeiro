@@ -9,7 +9,6 @@ import {
   TrendingDown,
   Calendar,
   BarChart3,
-  PieChart,
   Wallet,
   Target,
   CreditCard,

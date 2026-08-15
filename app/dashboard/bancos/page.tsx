@@ -1,6 +1,6 @@
 'use client';
 
-import { Plus, Bank } from 'lucide-react';
+import { Plus, Building2 } from 'lucide-react';
 
 export default function BancosPage() {
   const bancos = [
@@ -39,7 +39,7 @@ export default function BancosPage() {
                 <p className="text-sm text-gray-600">{banco.nome}</p>
                 <p className="text-xs text-gray-500 mt-1">{banco.tipo}</p>
               </div>
-              <Bank className="w-8 h-8 text-sky-500" />
+              <Building2 className="w-8 h-8 text-sky-500" />
             </div>
             <p className="text-2xl font-bold text-gray-900">
               R$ {banco.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}

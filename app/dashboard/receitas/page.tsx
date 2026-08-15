@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useFinancialStore, type Receita } from '@/lib/store';
-import { Plus, Filter, Download, Edit2, Trash2, Search, X } from 'lucide-react';
+import { Plus, Download, Edit2, Trash2, Search, X } from 'lucide-react';
 
 const CATEGORIAS = ['Salário', 'Freelance', 'Bônus', 'Investimentos', 'Comissão', 'Aluguel', 'Outros'];
 const BANCOS = ['Itaú', 'Nubank', 'Banco do Brasil', 'Santander', 'Caixa', 'C6', 'Inter'];
@@ -23,8 +23,8 @@ export default function ReceitasPage() {
     categoria: 'Salário',
     banco: 'Itaú',
     cliente: '',
-    status: 'pendente' as const,
-    tipo: 'receita' as const,
+    status: 'pendente',
+    tipo: 'receita',
   });
 
   const receitasFiltradas = useMemo(() => {
@@ -50,10 +50,10 @@ export default function ReceitasPage() {
     e.preventDefault();
 
     if (editingId) {
-      updateReceita(editingId, formData);
+      updateReceita(editingId, { ...formData, status: formData.status as 'recebido' | 'pendente' | 'atrasado', tipo: formData.tipo as 'receita' });
       setEditingId(null);
     } else {
-      addReceita(formData);
+      addReceita({ ...formData, status: formData.status as 'recebido' | 'pendente' | 'atrasado', tipo: formData.tipo as 'receita' });
     }
 
     setFormData({
@@ -92,6 +92,8 @@ export default function ReceitasPage() {
         return <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">🟡 Pendente</span>;
       case 'atrasado':
         return <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">🔴 Atrasado</span>;
+      default:
+        return <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">{status}</span>;
     }
   };
 

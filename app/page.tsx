@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [_loading, _setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function LoginPage() {
                   onChange={(e) => setNome(e.target.value)}
                   placeholder="Seu nome completo"
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  disabled={loading}
+                  disabled={_loading}
                 />
               </div>
             )}
@@ -97,7 +97,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
                   className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  disabled={loading}
+                  disabled={_loading}
                 />
               </div>
             </div>
@@ -113,13 +113,13 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  disabled={loading}
+                  disabled={_loading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
-                  disabled={loading}
+                  disabled={_loading}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -137,7 +137,7 @@ export default function LoginPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
                     className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                    disabled={loading}
+                    disabled={_loading}
                   />
                 </div>
               </div>
@@ -154,10 +154,10 @@ export default function LoginPage() {
             {/* Botão */}
             <button
               type="submit"
-              disabled={loading}
+              disabled={_loading}
               className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg transition disabled:opacity-50"
             >
-              {loading ? 'Carregando...' : isSignUp ? 'Criar Conta' : 'Entrar'}
+              {_loading ? 'Carregando...' : isSignUp ? 'Criar Conta' : 'Entrar'}
             </button>
 
             {/* Toggle */}
@@ -171,7 +171,7 @@ export default function LoginPage() {
                   setConfirmPassword('');
                 }}
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                disabled={loading}
+                disabled={_loading}
               >
                 {isSignUp ? 'Já tem conta? Entre aqui' : 'Não tem conta? Cadastre-se'}
               </button>

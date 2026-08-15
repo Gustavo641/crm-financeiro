@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Bell, Lock, Trash2, Save } from 'lucide-react';
+import { Bell, Lock, Trash2, Save } from 'lucide-react';
 
 export default function Configuracoes() {
   const [tema, setTema] = useState('light');

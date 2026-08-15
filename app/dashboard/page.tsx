@@ -5,7 +5,7 @@ import { useFinancialStore } from '@/lib/store';
 import { TrendingUp, TrendingDown, Target, AlertCircle, PieChart, BarChart3, Wallet } from 'lucide-react';
 import StatCard from '@/components/StatCard';
 import ChartContainer from '@/components/ChartContainer';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart as RechartsChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart as RechartsChart, Pie, Cell } from 'recharts';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -100,7 +100,7 @@ export default function DashboardPage() {
           value={`R$ ${economia.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
           change={`${metasCompletas}/${metas.length} metas`}
           isPositive={economia > 0}
-          color="emerald"
+          color="teal"
         />
       </div>
 
@@ -190,7 +190,7 @@ export default function DashboardPage() {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {despesasPorCategoria.map((entry, index) => (
+                {despesasPorCategoria.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                 ))}
               </Pie>
