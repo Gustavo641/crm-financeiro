@@ -21,14 +21,14 @@ export default function ContasPage() {
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ descricao: '', valor: 0, vencimento: '', status: 'a-vencer' as const });
+  const [formData, setFormData] = useState({ descricao: '', valor: 0, vencimento: '', status: 'a-vencer' });
 
   const handleAddEdit = () => {
     if (editingId) {
-      setContas(contas.map(c => c.id === editingId ? { ...c, ...formData } : c));
+      setContas(contas.map(c => c.id === editingId ? { ...c, ...formData, status: formData.status as Conta['status'] } : c));
       setEditingId(null);
     } else {
-      setContas([...contas, { id: Date.now(), ...formData }]);
+      setContas([...contas, { id: Date.now(), descricao: formData.descricao, valor: formData.valor, vencimento: formData.vencimento, status: formData.status as Conta['status'] }]);
     }
     setFormData({ descricao: '', valor: 0, vencimento: '', status: 'a-vencer' });
     setShowForm(false);
@@ -44,7 +44,7 @@ export default function ContasPage() {
     setContas(contas.filter(c => c.id !== id));
   };
 
-  const calcularDias = (vencimento: string, status: string) => {
+  const calcularDias = (vencimento: string) => {
     const [dia, mes, ano] = vencimento.split('/').map(Number);
     const dataVencimento = new Date(ano, mes - 1, dia);
     const hoje = new Date();
@@ -174,7 +174,7 @@ export default function ContasPage() {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <p className="font-semibold text-gray-900">R$ {conta.valor.toFixed(2)}</p>
-                    <p className="text-xs text-yellow-700">Faltam {calcularDias(conta.vencimento, conta.status)} dias</p>
+                    <p className="text-xs text-yellow-700">Faltam {calcularDias(conta.vencimento)} dias</p>
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => handleEdit(conta)} className="p-2 text-blue-600 hover:bg-blue-100 rounded transition">
@@ -205,7 +205,7 @@ export default function ContasPage() {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <p className="font-semibold text-gray-900">R$ {conta.valor.toFixed(2)}</p>
-                    <p className="text-xs text-red-700">Atrasado há {Math.abs(calcularDias(conta.vencimento, conta.status))} dias</p>
+                    <p className="text-xs text-red-700">Atrasado há {Math.abs(calcularDias(conta.vencimento))} dias</p>
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => handleEdit(conta)} className="p-2 text-blue-600 hover:bg-blue-100 rounded transition">
