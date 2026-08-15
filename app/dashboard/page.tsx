@@ -153,6 +153,111 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* KPIs Combinados - Análise Financeira */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow p-6 border-l-4 border-blue-500">
+          <p className="text-sm text-blue-700 font-semibold">Taxa de Poupança</p>
+          <p className="text-3xl font-bold text-blue-900 mt-2">
+            {totalReceitas > 0 ? ((economia / totalReceitas) * 100).toFixed(1) : 0}%
+          </p>
+          <p className="text-xs text-blue-600 mt-1">📊 Percentual da receita economizado</p>
+        </div>
+        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow p-6 border-l-4 border-green-500">
+          <p className="text-sm text-green-700 font-semibold">Índice de Saúde</p>
+          <p className="text-3xl font-bold text-green-900 mt-2">
+            {((receitasRecebidas / (totalReceitas || 1)) * 100).toFixed(0)}%
+          </p>
+          <p className="text-xs text-green-600 mt-1">✓ Receitas realizadas vs. Planejado</p>
+        </div>
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow p-6 border-l-4 border-purple-500">
+          <p className="text-sm text-purple-700 font-semibold">Média Mensal</p>
+          <p className="text-3xl font-bold text-purple-900 mt-2">
+            R$ {(economia > 0 ? economia / 6 : 0).toLocaleString('pt-BR', { minimumFractionDigits: 0 })}
+          </p>
+          <p className="text-xs text-purple-600 mt-1">💰 Economia média/mês (6 últimos meses)</p>
+        </div>
+      </div>
+
+      {/* Últimas Transações */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="font-semibold text-lg text-gray-900 mb-4">📋 Últimas Transações</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">📈</span>
+              <div>
+                <p className="font-medium text-gray-900">Receita de Salário</p>
+                <p className="text-xs text-gray-500">Hoje</p>
+              </div>
+            </div>
+            <p className="font-semibold text-green-600">+R$ 5.000,00</p>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">🏠</span>
+              <div>
+                <p className="font-medium text-gray-900">Aluguel</p>
+                <p className="text-xs text-gray-500">Ontem</p>
+              </div>
+            </div>
+            <p className="font-semibold text-red-600">-R$ 2.000,00</p>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">🍔</span>
+              <div>
+                <p className="font-medium text-gray-900">Alimentação</p>
+                <p className="text-xs text-gray-500">Há 2 dias</p>
+              </div>
+            </div>
+            <p className="font-semibold text-red-600">-R$ 125,50</p>
+          </div>
+        </div>
+        <Link
+          href="/dashboard/receitas"
+          className="mt-4 block text-center px-4 py-2 bg-sky-50 text-sky-700 font-medium rounded-lg hover:bg-sky-100 transition"
+        >
+          Ver todas as transações →
+        </Link>
+      </div>
+
+      {/* Resumo de Metas */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="font-semibold text-lg text-gray-900 mb-4">🎯 Resumo de Metas</h3>
+        {metas.length > 0 ? (
+          <div className="space-y-3">
+            {metas.slice(0, 3).map(meta => {
+              const progresso = ((meta.valorAtual / meta.valorDesejado) * 100);
+              return (
+                <div key={meta.id} className="p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="font-medium text-gray-900">{meta.nome}</p>
+                    <span className="text-sm font-semibold text-gray-600">{Math.round(progresso)}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-sky-500 to-teal-500"
+                      style={{ width: `${Math.min(progresso, 100)}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    R$ {meta.valorAtual.toLocaleString('pt-BR')} de R$ {meta.valorDesejado.toLocaleString('pt-BR')}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-gray-600 text-center py-6">Nenhuma meta criada</p>
+        )}
+        <Link
+          href="/dashboard/metas"
+          className="mt-4 block text-center px-4 py-2 bg-sky-50 text-sky-700 font-medium rounded-lg hover:bg-sky-100 transition"
+        >
+          Gerenciar metas →
+        </Link>
+      </div>
+
       {/* Gráficos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Gráfico de Receitas x Despesas */}
@@ -204,7 +309,7 @@ export default function DashboardPage() {
         <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <span className="text-xl">⚡</span> Ações Rápidas
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <Link
             href="/dashboard/receitas"
             className="px-4 py-3 bg-white hover:bg-green-50 rounded-lg text-sm text-gray-700 font-medium transition border border-gray-200 hover:border-green-300"
@@ -222,6 +327,12 @@ export default function DashboardPage() {
             className="px-4 py-3 bg-white hover:bg-blue-50 rounded-lg text-sm text-gray-700 font-medium transition border border-gray-200 hover:border-blue-300"
           >
             🎯 Acompanhar Metas
+          </Link>
+          <Link
+            href="/dashboard/relatorios"
+            className="px-4 py-3 bg-white hover:bg-purple-50 rounded-lg text-sm text-gray-700 font-medium transition border border-gray-200 hover:border-purple-300"
+          >
+            📊 Ver Relatórios
           </Link>
         </div>
       </div>
