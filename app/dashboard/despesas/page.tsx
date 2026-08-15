@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { useFinancialStore, type Despesa } from '@/lib/store';
 import { Plus, Download, Edit2, Trash2, Search, X } from 'lucide-react';
 
-const CATEGORIAS = ['Casa', 'Transporte', 'Alimentação', 'Internet', 'Energia', 'Água', 'Financiamentos', 'Assinaturas', 'Saúde', 'Educação', 'Viagens', 'Presentes', 'Compras', 'Outros'];
+const CATEGORIAS = ['Casa', 'Transporte', 'Alimentação', 'Internet', 'Energia', 'Água', 'Telefone', 'Financiamentos', 'Assinaturas', 'Saúde', 'Educação', 'Viagens', 'Presentes', 'Compras', 'Outros'];
 const BANCOS = ['Itaú', 'Bradesco', 'Nubank', 'Banco do Brasil', 'Santander', 'Caixa', 'C6', 'Inter'];
 const FORMAS_PAGAMENTO = ['Débito', 'Crédito', 'Dinheiro', 'Pix', 'Boleto', 'Transferência'];
 const STATUS_OPTIONS = ['pago', 'pendente', 'atrasado'];
