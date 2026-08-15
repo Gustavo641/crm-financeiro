@@ -1,0 +1,11 @@
+.git
+.next/cache
+.next/build
+node_modules
+*.log
+.env.local.example
+README.md
+SETUP_GUIA.md
+START_HERE.md
+RESUMO_ENTREGA.md
+GITHUB_PUSH.md
