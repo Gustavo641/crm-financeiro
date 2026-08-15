@@ -143,6 +143,18 @@ export default function LoginPage() {
               </div>
             )}
 
+            {!isSignUp && (
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={() => setError('')}
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Esqueci a Senha
+                </button>
+              </div>
+            )}
+
             {/* Erro */}
             {error && (
               <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
