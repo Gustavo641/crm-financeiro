@@ -5,7 +5,7 @@ import { useFinancialStore, type Receita } from '@/lib/store';
 import { Plus, Download, Edit2, Trash2, Search, X } from 'lucide-react';
 
 const CATEGORIAS = ['Salário', 'Freelance', 'Bônus', 'Investimentos', 'Comissão', 'Aluguel', 'Outros'];
-const BANCOS = ['Itaú', 'Nubank', 'Banco do Brasil', 'Santander', 'Caixa', 'C6', 'Inter'];
+const BANCOS = ['Itaú', 'Bradesco', 'Nubank', 'Banco do Brasil', 'Santander', 'Caixa', 'C6', 'Inter'];
 const STATUS_OPTIONS = ['recebido', 'pendente', 'atrasado'];
 
 export default function ReceitasPage() {
