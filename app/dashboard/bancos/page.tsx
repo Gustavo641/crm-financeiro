@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Building2, Edit2, Trash2, X } from 'lucide-react';
 
 interface Banco {
@@ -11,12 +11,32 @@ interface Banco {
   status: 'Ativo' | 'Inativo';
 }
 
+const DEFAULT_BANCOS: Banco[] = [
+  { id: 1, nome: 'Itaú', saldo: 5250.50, tipo: 'Conta Corrente', status: 'Ativo' },
+  { id: 2, nome: 'Nubank', saldo: 3200.00, tipo: 'Conta Poupança', status: 'Ativo' },
+  { id: 3, nome: 'C6 Bank', saldo: 4050.75, tipo: 'Conta Investimento', status: 'Ativo' },
+];
+
 export default function BancosPage() {
-  const [bancos, setBancos] = useState<Banco[]>([
-    { id: 1, nome: 'Itaú', saldo: 5250.50, tipo: 'Conta Corrente', status: 'Ativo' },
-    { id: 2, nome: 'Nubank', saldo: 3200.00, tipo: 'Conta Poupança', status: 'Ativo' },
-    { id: 3, nome: 'C6 Bank', saldo: 4050.75, tipo: 'Conta Investimento', status: 'Ativo' },
-  ]);
+  const [bancos, setBancos] = useState<Banco[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('bancos');
+    if (saved) {
+      setBancos(JSON.parse(saved));
+    } else {
+      setBancos(DEFAULT_BANCOS);
+      localStorage.setItem('bancos', JSON.stringify(DEFAULT_BANCOS));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && bancos.length > 0) {
+      localStorage.setItem('bancos', JSON.stringify(bancos));
+    }
+  }, [bancos, isClient]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);

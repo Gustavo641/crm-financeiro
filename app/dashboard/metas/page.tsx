@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Target, Edit2, Trash2, X } from 'lucide-react';
 
 interface Meta {
@@ -10,13 +10,33 @@ interface Meta {
   valorAtual: number;
 }
 
+const DEFAULT_METAS: Meta[] = [
+  { id: 1, nome: '🚗 Comprar Carro', valorDesejado: 50000, valorAtual: 12500 },
+  { id: 2, nome: '🏠 Comprar Imóvel', valorDesejado: 300000, valorAtual: 75000 },
+  { id: 3, nome: '✈️ Viajar para Miami', valorDesejado: 15000, valorAtual: 8500 },
+  { id: 4, nome: '💻 Comprar Notebook', valorDesejado: 5000, valorAtual: 4200 },
+];
+
 export default function MetasPage() {
-  const [metas, setMetas] = useState<Meta[]>([
-    { id: 1, nome: '🚗 Comprar Carro', valorDesejado: 50000, valorAtual: 12500 },
-    { id: 2, nome: '🏠 Comprar Imóvel', valorDesejado: 300000, valorAtual: 75000 },
-    { id: 3, nome: '✈️ Viajar para Miami', valorDesejado: 15000, valorAtual: 8500 },
-    { id: 4, nome: '💻 Comprar Notebook', valorDesejado: 5000, valorAtual: 4200 },
-  ]);
+  const [metas, setMetas] = useState<Meta[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('metas');
+    if (saved) {
+      setMetas(JSON.parse(saved));
+    } else {
+      setMetas(DEFAULT_METAS);
+      localStorage.setItem('metas', JSON.stringify(DEFAULT_METAS));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && metas.length > 0) {
+      localStorage.setItem('metas', JSON.stringify(metas));
+    }
+  }, [metas, isClient]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);

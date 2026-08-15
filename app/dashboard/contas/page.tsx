@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AlertCircle, Check, Clock, Edit2, Trash2, Plus, X } from 'lucide-react';
 
 interface Conta {
@@ -11,13 +11,33 @@ interface Conta {
   status: 'a-vencer' | 'vencida' | 'paga';
 }
 
+const DEFAULT_CONTAS: Conta[] = [
+  { id: 1, descricao: 'Conta de Luz', valor: 250, vencimento: '18/08/2025', status: 'a-vencer' },
+  { id: 2, descricao: 'Internet', valor: 120, vencimento: '20/08/2025', status: 'a-vencer' },
+  { id: 3, descricao: 'Fatura Cartão', valor: 1500, vencimento: '10/08/2025', status: 'vencida' },
+  { id: 4, descricao: 'Aluguel', valor: 2000, vencimento: '01/08/2025', status: 'paga' },
+];
+
 export default function ContasPage() {
-  const [contas, setContas] = useState<Conta[]>([
-    { id: 1, descricao: 'Conta de Luz', valor: 250, vencimento: '18/08/2025', status: 'a-vencer' },
-    { id: 2, descricao: 'Internet', valor: 120, vencimento: '20/08/2025', status: 'a-vencer' },
-    { id: 3, descricao: 'Fatura Cartão', valor: 1500, vencimento: '10/08/2025', status: 'vencida' },
-    { id: 4, descricao: 'Aluguel', valor: 2000, vencimento: '01/08/2025', status: 'paga' },
-  ]);
+  const [contas, setContas] = useState<Conta[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('contas');
+    if (saved) {
+      setContas(JSON.parse(saved));
+    } else {
+      setContas(DEFAULT_CONTAS);
+      localStorage.setItem('contas', JSON.stringify(DEFAULT_CONTAS));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && contas.length > 0) {
+      localStorage.setItem('contas', JSON.stringify(contas));
+    }
+  }, [contas, isClient]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);

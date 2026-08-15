@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Eye, EyeOff, Copy, Trash2, Edit2, X } from 'lucide-react';
 
 interface Login {
@@ -12,12 +12,32 @@ interface Login {
   criado: string;
 }
 
+const DEFAULT_LOGINS: Login[] = [
+  { id: 1, site: 'Banco do Brasil', usuario: 'seu@email.com', senha: 'senha123', categoria: 'Banco', criado: '01/08/2025' },
+  { id: 2, site: 'Nubank', usuario: 'seu@email.com', senha: 'nubank456', categoria: 'Banco', criado: '05/08/2025' },
+  { id: 3, site: 'Instagram', usuario: '@seu_usuario', senha: 'insta789', categoria: 'Redes Sociais', criado: '10/08/2025' },
+];
+
 export default function LoginsPage() {
-  const [logins, setLogins] = useState<Login[]>([
-    { id: 1, site: 'Banco do Brasil', usuario: 'seu@email.com', senha: 'senha123', categoria: 'Banco', criado: '01/08/2025' },
-    { id: 2, site: 'Nubank', usuario: 'seu@email.com', senha: 'nubank456', categoria: 'Banco', criado: '05/08/2025' },
-    { id: 3, site: 'Instagram', usuario: '@seu_usuario', senha: 'insta789', categoria: 'Redes Sociais', criado: '10/08/2025' },
-  ]);
+  const [logins, setLogins] = useState<Login[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('logins');
+    if (saved) {
+      setLogins(JSON.parse(saved));
+    } else {
+      setLogins(DEFAULT_LOGINS);
+      localStorage.setItem('logins', JSON.stringify(DEFAULT_LOGINS));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && logins.length > 0) {
+      localStorage.setItem('logins', JSON.stringify(logins));
+    }
+  }, [logins, isClient]);
 
   const [showPasswords, setShowPasswords] = useState<Record<number, boolean>>({});
   const [showForm, setShowForm] = useState(false);

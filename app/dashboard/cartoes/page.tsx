@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, CreditCard, Edit2, Trash2, X } from 'lucide-react';
 
 interface Cartao {
@@ -14,11 +14,31 @@ interface Cartao {
   status: 'Ativo' | 'Inativo';
 }
 
+const DEFAULT_CARTOES: Cartao[] = [
+  { id: 1, nome: 'Nubank', ultimos: '****5555', limite: 5000, utilizado: 2300, fechamento: '10/08', vencimento: '20/08', status: 'Ativo' },
+  { id: 2, nome: 'Itaú Personnalité', ultimos: '****8888', limite: 10000, utilizado: 4500, fechamento: '15/08', vencimento: '25/08', status: 'Ativo' },
+];
+
 export default function CartoesPage() {
-  const [cartoes, setCartoes] = useState<Cartao[]>([
-    { id: 1, nome: 'Nubank', ultimos: '****5555', limite: 5000, utilizado: 2300, fechamento: '10/08', vencimento: '20/08', status: 'Ativo' },
-    { id: 2, nome: 'Itaú Personnalité', ultimos: '****8888', limite: 10000, utilizado: 4500, fechamento: '15/08', vencimento: '25/08', status: 'Ativo' },
-  ]);
+  const [cartoes, setCartoes] = useState<Cartao[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('cartoes');
+    if (saved) {
+      setCartoes(JSON.parse(saved));
+    } else {
+      setCartoes(DEFAULT_CARTOES);
+      localStorage.setItem('cartoes', JSON.stringify(DEFAULT_CARTOES));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && cartoes.length > 0) {
+      localStorage.setItem('cartoes', JSON.stringify(cartoes));
+    }
+  }, [cartoes, isClient]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
